@@ -31,6 +31,14 @@ pub use mega::*;
 mod uno;
 #[cfg(any(feature = "arduino-nano", feature = "arduino-uno", feature = "nano168", feature = "sparkfun-promini-5v"))]
 pub use uno::*;
+#[cfg(any(feature = "samn8"))]
+mod samn8;
+#[cfg(any(feature = "samn8"))]
+pub use samn8::*;
+#[cfg(any(feature = "samn9"))]
+mod samn9;
+#[cfg(any(feature = "samn9"))]
+pub use samn9::*;
 #[cfg(feature = "sparkfun-promicro")]
 mod promicro;
 #[cfg(feature = "sparkfun-promicro")]

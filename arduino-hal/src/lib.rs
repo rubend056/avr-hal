@@ -142,8 +142,14 @@ pub use adc::Adc;
 #[cfg(feature = "mcu-atmega")]
 pub mod i2c {
     pub use crate::hal::i2c::*;
-
+    
+    #[cfg(not(feature = "samn9"))]
     pub type I2c = crate::hal::i2c::I2c<crate::DefaultClock>;
+
+    #[cfg(feature = "samn9")]
+    pub type I2c0 = crate::hal::i2c::I2c0<crate::DefaultClock>;
+    #[cfg(feature = "samn9")]
+    pub type I2c1 = crate::hal::i2c::I2c1<crate::DefaultClock>;
 }
 #[doc(no_inline)]
 #[cfg(feature = "mcu-atmega")]
@@ -154,7 +160,13 @@ pub use i2c::I2c;
 pub mod spi {
     pub use crate::hal::spi::*;
 
+    #[cfg(not(feature = "samn9"))]
     pub type Spi = crate::hal::spi::Spi;
+
+    #[cfg(feature = "samn9")]
+    pub type Spi0 = crate::hal::spi::Spi0;
+    #[cfg(feature = "samn9")]
+    pub type Spi1 = crate::hal::spi::Spi1;
 }
 #[doc(no_inline)]
 #[cfg(feature = "mcu-atmega")]
@@ -192,7 +204,8 @@ pub mod prelude {
             feature = "arduino-diecimila",
             feature = "arduino-mega2560",
             feature = "arduino-mega1280",
-            feature = "arduino-uno"
+            feature = "arduino-uno",
+            feature = "samn9"
         ))] {
             pub use crate::hal::usart::BaudrateArduinoExt as _;
         } else {
@@ -255,6 +268,34 @@ macro_rules! default_serial {
             $p.USART0,
             $pins.d0,
             $pins.d1.into_output(),
+            $crate::hal::usart::BaudrateArduinoExt::into_baudrate($baud),
+        )
+    };
+}
+#[cfg(any(
+    feature = "samn8",
+))]
+#[macro_export]
+macro_rules! default_serial {
+    ($p:expr, $pins:expr, $baud:expr) => {
+        $crate::Usart::new(
+            $p.USART0,
+            $pins.d0,
+            $pins.d1.into_output(),
+            $crate::hal::usart::BaudrateArduinoExt::into_baudrate($baud),
+        )
+    };
+}
+#[cfg(any(
+    feature = "samn9",
+))]
+#[macro_export]
+macro_rules! default_serial {
+    ($p:expr, $pins:expr, $baud:expr) => {
+        $crate::Usart::new(
+            $p.USART0,
+            $pins.rx,
+            $pins.tx.into_output(),
             $crate::hal::usart::BaudrateArduinoExt::into_baudrate($baud),
         )
     };
