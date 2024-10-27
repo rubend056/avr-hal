@@ -30,8 +30,11 @@ pub(crate) mod default {
     #[cfg(feature = "trinket")]
     pub type DefaultClock = avr_hal_generic::clock::MHz8;
     
-    #[cfg(feature = "samn9")]
-    pub type DefaultClock = avr_hal_generic::clock::MHz8;
-    #[cfg(feature = "samn8")]
+    #[cfg(any(
+        feature = "samn8",
+        feature = "samn9",
+        feature = "samn_dc",
+        feature = "samn_switch",
+    ))]
     pub type DefaultClock = avr_hal_generic::clock::MHz8;
 }

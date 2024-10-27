@@ -27,15 +27,25 @@ pub use leonardo::*;
 mod mega;
 #[cfg(any(feature = "arduino-mega2560", feature = "arduino-mega1280"))]
 pub use mega::*;
-#[cfg(any(feature = "samn9"))]
-mod samn9;
-#[cfg(any(feature = "samn9"))]
-pub use samn9::*;
 
-#[cfg(any(feature = "samn8"))]
+#[cfg(feature = "samn8")]
 mod samn8;
-#[cfg(any(feature = "samn8"))]
+#[cfg(feature = "samn8")]
 pub use samn8::*;
+#[cfg(feature = "samn9")]
+mod samn9;
+#[cfg(feature = "samn9")]
+pub use samn9::*;
+#[cfg(feature = "samn_dc")]
+mod samn_dc;
+#[cfg(feature = "samn_dc")]
+pub use samn_dc::*;
+#[cfg(feature = "samn_switch")]
+mod samn_switch;
+#[cfg(feature = "samn_switch")]
+pub use samn_switch::*;
+
+
 
 #[cfg(any(feature = "arduino-nano", feature = "arduino-uno", feature = "nano168", feature = "sparkfun-promini-5v"))]
 mod uno;

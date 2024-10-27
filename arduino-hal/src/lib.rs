@@ -143,12 +143,12 @@ pub use adc::Adc;
 pub mod i2c {
     pub use crate::hal::i2c::*;
     
-    #[cfg(not(feature = "samn9"))]
+    #[cfg(not(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch")))]
     pub type I2c = crate::hal::i2c::I2c<crate::DefaultClock>;
 
-    #[cfg(feature = "samn9")]
+    #[cfg(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch"))]
     pub type I2c0 = crate::hal::i2c::I2c0<crate::DefaultClock>;
-    #[cfg(feature = "samn9")]
+    #[cfg(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch"))]
     pub type I2c1 = crate::hal::i2c::I2c1<crate::DefaultClock>;
 }
 #[doc(no_inline)]
@@ -160,12 +160,12 @@ pub use i2c::I2c;
 pub mod spi {
     pub use crate::hal::spi::*;
 
-    #[cfg(not(feature = "samn9"))]
+    #[cfg(not(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch")))]
     pub type Spi = crate::hal::spi::Spi;
 
-    #[cfg(feature = "samn9")]
+    #[cfg(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch"))]
     pub type Spi0 = crate::hal::spi::Spi0;
-    #[cfg(feature = "samn9")]
+    #[cfg(any(feature = "samn9",feature = "samn_dc",feature = "samn_switch"))]
     pub type Spi1 = crate::hal::spi::Spi1;
 }
 #[doc(no_inline)]
@@ -205,7 +205,9 @@ pub mod prelude {
             feature = "arduino-mega2560",
             feature = "arduino-mega1280",
             feature = "arduino-uno",
-            feature = "samn9"
+            feature = "samn9",
+            feature = "samn_dc",
+            feature = "samn_switch",
         ))] {
             pub use crate::hal::usart::BaudrateArduinoExt as _;
         } else {
@@ -288,6 +290,8 @@ macro_rules! default_serial {
 }
 #[cfg(any(
     feature = "samn9",
+    feature = "samn_dc",
+    feature = "samn_switch",
 ))]
 #[macro_export]
 macro_rules! default_serial {
