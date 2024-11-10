@@ -72,7 +72,7 @@ avr_hal_generic::renamed_pins! {
         /// * T1 (Timer/Counter 1 external counter input)
         /// * OC0B (Timer/Counter0 output compare match B output)
         /// * PCINT21 (pin change interrupt 21)
-        pub push_button: atmega_hal::port::PD5 = pd5,
+        pub switch: atmega_hal::port::PD5 = pd5,
         /// `D6`
         ///
         /// * **PWM**: [atmega328p_hal::timer::Timer3Pwm]
@@ -103,7 +103,7 @@ avr_hal_generic::renamed_pins! {
         /// * SS (SPI bus master slave select)
         /// * OC1B (Timer/Counter1 output compare match B output)
         /// * PCINT2 (pin change interrupt 2)
-        // pub b2: atmega_hal::port::PB2 = pb2,
+        pub ss: atmega_hal::port::PB2 = pb2,
         /// `D11`
         ///
         /// * **PWM**: [atmega328p_hal::timer::Timer3Pwm]
